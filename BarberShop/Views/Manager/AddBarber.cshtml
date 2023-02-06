@@ -1,0 +1,114 @@
+﻿@model BarberShop.ViewModelsManager.VMBarbers
+
+@{
+    ViewData["Title"] = "AddBarber";
+}
+
+<h1>ספרים</h1>
+
+@if(Model.Barbers.Count > 0)
+{
+        <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Barber.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Barber.Description)
+                </th>              
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Barber.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Barber.Email)
+                </th>
+                      <th>
+                    @Html.DisplayNameFor(model => model.Barber.Image)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Barbers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>                  
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @if (item.Image != null)
+                        {
+
+                            <img src="data:image/png;base64,@Convert.ToBase64String(item.Image)" alt="@item.Image" width="100" height="100" />
+
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("ערוך", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("פרטים", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("מחיקה", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<button class="btn btn-warning" onclick="addBarber()">הוספת ספר</button>
+<div class="row" id="addBarber" style="display:none">
+    <div class="col-md-4">
+        <form asp-action="AddBarber" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Barber.FirstName" class="control-label"></label>
+                <input asp-for="Barber.FirstName" class="form-control" />
+                <span asp-validation-for="Barber.FirstName" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Barber.LastName" class="control-label"></label>
+                <input asp-for="Barber.LastName" class="form-control" />
+                <span asp-validation-for="Barber.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Barber.Description" class="control-label"></label>
+                <input asp-for="Barber.Description" class="form-control" />
+                <span asp-validation-for="Barber.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Barber.PhoneNumber" class="control-label"></label>
+                <input asp-for="Barber.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Barber.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Barber.Email" class="control-label"></label>
+                <input asp-for="Barber.Email" class="form-control" />
+                <span asp-validation-for="Barber.Email" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Barber.Password" class="control-label"></label>
+                <input asp-for="Barber.Password" class="form-control" />
+                <span asp-validation-for="Barber.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="File" class="control-label"></label>
+                <input type="file" asp-for="File" class="form-control" />
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="הוספת ספר" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
